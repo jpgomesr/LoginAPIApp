@@ -11,8 +11,8 @@ function Login() {
                   id="password"
                   placeholder="Digite sua senha"
                />
-               <button>Ja possuo conta</button>
-               <button>Cadastrar conta</button>
+               <button>Criar conta</button>
+               <button>Entrar</button>
             </form>
          </div>
       </>
