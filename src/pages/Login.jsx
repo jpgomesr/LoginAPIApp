@@ -1,4 +1,33 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+
 function Login() {
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      document.getElementById("loginButton").addEventListener("click", (e) => {
+         e.preventDefault();
+
+         const email = document.getElementById("email").value;
+         const password = document.getElementById("password").value;
+
+         fetch("http://localhost:8081/api/cadastro");
+
+         document.getElementById("email").value = "";
+         document.getElementById("password").value = "";
+
+         navigate(`/`);
+      });
+
+      document
+         .getElementById("createAccount")
+         .addEventListener("click", (e) => {
+            e.preventDefault();
+
+            navigate(`/register`);
+         });
+   });
+
    return (
       <>
          <div className="flex justify-center items-center w-screen h-screen">
@@ -11,8 +40,8 @@ function Login() {
                   id="password"
                   placeholder="Digite sua senha"
                />
-               <button>Criar conta</button>
-               <button>Entrar</button>
+               <button id="createAccount">Criar conta</button>
+               <button id="loginButton">Entrar</button>
             </form>
          </div>
       </>
