@@ -5,7 +5,7 @@ function Register() {
             <form action="login" className="flex flex-col">
                <label htmlFor="name">Nome</label>
                <input type="text" id="name" placeholder="Digite seu nome" />
-               <label htmlFor="lastName">Sobrenome</label>
+               <label htmlDFor="lastName">Sobrenome</label>
                <input
                   type="text"
                   id="lastName"
