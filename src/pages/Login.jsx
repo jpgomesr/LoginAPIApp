@@ -48,12 +48,18 @@ function Login() {
    }, [email, password]);
 
    useEffect(() => {
-      const createAccount = document.getElementById("createAccount");
+      const registerButton = document.getElementById("registerButton");
 
-      createAccount.addEventListener("click", () => {
-         navigate(`/register`);
-      });
-   });
+      const handleNavigateRegister = () => {
+         navigate("/register");
+      };
+
+      registerButton.addEventListener("click", handleNavigateRegister);
+
+      return () => {
+         registerButton.removeEventListener("click", handleNavigateRegister);
+      };
+   }, []);
 
    return (
       <div className="flex py-3 px-3 items-center justify-center bg-gray-200 min-h-screen">
@@ -67,6 +73,8 @@ function Login() {
                   <input
                      type="email"
                      id="email"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
                      placeholder="Digite seu e-mail"
                      className="p-2 border border-gray-300 rounded mb-4"
                   />
@@ -76,12 +84,15 @@ function Login() {
                   <input
                      type="password"
                      id="password"
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}
                      placeholder="Digite sua senha"
                      className="p-2 border border-gray-300 mb-6"
                   />
                   <button
                      type="submit"
                      className="bg-cyan-800  hover:bg-cyan-600 text-white p-2 transition"
+                     id="loginButton"
                   >
                      Entrar
                   </button>

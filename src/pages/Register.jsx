@@ -1,76 +1,76 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/Video4.mp4";
-import React, { useEffect } from "react";
+import React from "react";
 
 function Register() {
    const navigate = useNavigate();
-  
+
    const [name, setName] = useState("");
    const [lastName, setLastName] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
 
-   useEffect(() => {
-      const signUpButton = document.getElementById("signUpButton");
+   const handleSubmit = (e) => {
+      e.preventDefault();
 
-      const handleSubmit = (e) => {
-         e.preventDefault();
+      if (password !== confirmPassword) {
+         alert("As senhas precisam ser iguais");
+         return;
+      }
 
-         if (password !== confirmPassword) {
-            alert("As senhas precisam ser iguais");
-            return;
-         }
-
-         fetch("http://localhost:8081/api/cadastro", {
-            method: "POST",
-            headers: {
-               "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-               nome: name,
-               sobrenome: lastName,
-               email: email,
-               senha: password,
-            }),
+      fetch("http://localhost:8081/api/cadastro", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            nome: name,
+            sobrenome: lastName,
+            email: email,
+            senha: password,
+         }),
+      })
+         .then((response) => {
+            if (!response.ok) {
+               throw new Error("Erro inesperado");
+            }
+            return response.json();
          })
-            .then((response) => {
-               if (!response.ok) {
-                  throw new Error("Erro inesperado");
-               }
-               return response.json();
-            })
-            .then((data) => {
-               console.log("Sucesso: " + data);
-               navigate(`/`);
-            })
-            .catch((error) => {
-               console.error("Erro de operação: " + error);
-            });
-      };
-
-      signUpButton.addEventListener("click", handleSubmit);
-
-      return () => {
-         signUpButton.removeEventListener("click", handleSubmit);
-      };
-   }, [name, lastName, email, password, confirmPassword, navigate]);
+         .then((data) => {
+            console.log("Sucesso: " + data);
+            navigate(`/`);
+         })
+         .catch((error) => {
+            console.error("Erro de operação: " + error);
+         });
+   };
 
    useEffect(() => {
       const backLogin = document.getElementById("backLogin");
 
-      backLogin.addEventListener("click", () => {
-         navigate(`/`);
-      });
-   });
+      if (backLogin) {
+         backLogin.addEventListener("click", () => {
+            navigate(`/`);
+         });
+      }
+
+      return () => {
+         if (backLogin) {
+            backLogin.removeEventListener("click", () => {
+               navigate(`/`);
+            });
+         }
+      };
+   }, [navigate]);
 
    return (
       <div className="flex items-center justify-center min-h-screen bg-gray-200 py-6 px-6">
          <div className="flex flex-col sm:flex-row-reverse bg-white w-full max-w-4xl h-[40rem] shadow-lg rounded-lg overflow-hidden">
             <div className="w-full sm:w-1/2 p-8">
                <h1 className="text-3xl font-bold mb-8">Criar Conta</h1>
-               <form className="flex flex-col">
+               <form className="flex flex-col" onSubmit={handleSubmit}>
                   {/* Nome */}
                   <label htmlFor="name" className="text-sm mb-2">
                      Nome
@@ -78,6 +78,8 @@ function Register() {
                   <input
                      type="text"
                      id="name"
+                     value={name}
+                     onChange={(e) => setName(e.target.value)}
                      placeholder="Digite seu nome"
                      className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
@@ -89,6 +91,8 @@ function Register() {
                   <input
                      type="text"
                      id="lastName"
+                     value={lastName}
+                     onChange={(e) => setLastName(e.target.value)}
                      placeholder="Digite seu sobrenome"
                      className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
@@ -100,6 +104,8 @@ function Register() {
                   <input
                      type="email"
                      id="email"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
                      placeholder="Digite seu e-mail"
                      className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
@@ -111,17 +117,21 @@ function Register() {
                   <input
                      type="password"
                      id="password"
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}
                      placeholder="Digite sua senha"
                      className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
 
                   {/* Confirmar senha */}
-                  <label htmlFor="passwordConfirm" className="text-sm mb-2">
+                  <label htmlFor="confirmPassword" className="text-sm mb-2">
                      Confirmar senha
                   </label>
                   <input
                      type="password"
-                     id="passwordConfirm"
+                     id="confirmPassword"
+                     value={confirmPassword}
+                     onChange={(e) => setConfirmPassword(e.target.value)}
                      placeholder="Confirme sua senha"
                      className="p-2 border border-gray-300 mb-6 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
@@ -136,7 +146,7 @@ function Register() {
                   <h2 className="mt-4 text-center">
                      Já tem uma conta?{" "}
                      <span className="text-cyan-800 cursor-pointer">
-                        <button id="loginButton">Login</button>
+                        <button id="backLogin">Login</button>
                      </span>
                   </h2>
                </form>
