@@ -1,20 +1,68 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/Video4.mp4";
 import React, { useEffect } from "react";
 
 function Register() {
    const navigate = useNavigate();
-
-   const handleLoginPage = (e) => {
-      e.preventDefault();
-
-      navigate("/");
-   };
+  
+   const [name, setName] = useState("");
+   const [lastName, setLastName] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [confirmPassword, setConfirmPassword] = useState("");
 
    useEffect(() => {
-      const loginButton = document.getElementById("loginButton");
+      const signUpButton = document.getElementById("signUpButton");
 
-      loginButton.addEventListener("click", handleLoginPage);
+      const handleSubmit = (e) => {
+         e.preventDefault();
+
+         if (password !== confirmPassword) {
+            alert("As senhas precisam ser iguais");
+            return;
+         }
+
+         fetch("http://localhost:8081/api/cadastro", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               nome: name,
+               sobrenome: lastName,
+               email: email,
+               senha: password,
+            }),
+         })
+            .then((response) => {
+               if (!response.ok) {
+                  throw new Error("Erro inesperado");
+               }
+               return response.json();
+            })
+            .then((data) => {
+               console.log("Sucesso: " + data);
+               navigate(`/`);
+            })
+            .catch((error) => {
+               console.error("Erro de operação: " + error);
+            });
+      };
+
+      signUpButton.addEventListener("click", handleSubmit);
+
+      return () => {
+         signUpButton.removeEventListener("click", handleSubmit);
+      };
+   }, [name, lastName, email, password, confirmPassword, navigate]);
+
+   useEffect(() => {
+      const backLogin = document.getElementById("backLogin");
+
+      backLogin.addEventListener("click", () => {
+         navigate(`/`);
+      });
    });
 
    return (

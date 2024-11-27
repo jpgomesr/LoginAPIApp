@@ -1,21 +1,58 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import video from "../assets/Video4.mp4";
 import register from "./Register";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
    const navigate = useNavigate();
-
-   const handleRegisterPage = (e) => {
-      e.preventDefault();
-
-      navigate("/register");
-   };
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
 
    useEffect(() => {
-      const registerButton = document.getElementById("registerButton");
+      const loginButton = document.getElementById("loginButton");
 
-      registerButton.addEventListener("click", handleRegisterPage);
+      const handleLogin = (e) => {
+         e.preventDefault();
+
+         fetch("http://localhost:8081/api/login", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               email: email,
+               senha: password,
+            }),
+         })
+            .then((response) => {
+               if (!response.ok) {
+                  throw new Error("Credenciais inválidas");
+               }
+               return response.json();
+            })
+            .then((data) => {
+               console.log("Login bem-sucedido:" + data);
+               navigate("/main_page");
+            })
+            .catch((error) => {
+               console.error("Erro de login:" + error);
+               alert("Erro de login: " + error);
+            });
+      };
+
+      loginButton.addEventListener("click", handleLogin);
+
+      return () => {
+         loginButton.removeEventListener("click", handleLogin);
+      };
+   }, [email, password]);
+
+   useEffect(() => {
+      const createAccount = document.getElementById("createAccount");
+
+      createAccount.addEventListener("click", () => {
+         navigate(`/register`);
+      });
    });
 
    return (
