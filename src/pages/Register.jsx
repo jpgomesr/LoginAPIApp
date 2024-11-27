@@ -55,6 +55,14 @@ function Register() {
       };
    }, [name, lastName, email, password, confirmPassword, navigate]);
 
+   useEffect(() => {
+      const backLogin = document.getElementById("backLogin");
+
+      backLogin.addEventListener("click", () => {
+         navigate(`/`);
+      });
+   });
+
    return (
       <div className="flex justify-center items-center w-screen h-screen">
          <form className="flex flex-col">
@@ -98,7 +106,9 @@ function Register() {
                value={confirmPassword}
                onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <button type="button">Já possuo conta</button>
+            <button type="button" id="backLogin">
+               Já possuo conta
+            </button>
             <button type="button" id="signUpButton">
                Cadastrar conta
             </button>

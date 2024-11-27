@@ -11,22 +11,42 @@ function Login() {
          const email = document.getElementById("email").value;
          const password = document.getElementById("password").value;
 
-         fetch("http://localhost:8081/api/cadastro");
+         fetch("http://localhost:8081/api/login", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               email: email,
+               senha: password,
+            }),
+         })
+            .then((response) => {
+               if (!response.ok) {
+                  throw new Error("Credenciais inválidas");
+               }
+               return response.json();
+            })
+            .then((data) => {
+               console.log("Login bem-sucedido:", data);
+               navigate("/main_page");
+            })
+            .catch((error) => {
+               console.error("Erro de login:", error);
+               alert("Erro de login: " + error.message);
+            });
 
          document.getElementById("email").value = "";
          document.getElementById("password").value = "";
-
-         navigate(`/`);
       });
 
       document
          .getElementById("createAccount")
          .addEventListener("click", (e) => {
             e.preventDefault();
-
-            navigate(`/register`);
+            navigate("/register");
          });
-   });
+   }, [navigate]);
 
    return (
       <>
