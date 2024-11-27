@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import video from "../assets/Video4.mp4";
+import React, { useEffect } from "react";
 
 function Register() {
    const navigate = useNavigate();
-
+  
    const [name, setName] = useState("");
    const [lastName, setLastName] = useState("");
    const [email, setEmail] = useState("");
@@ -64,55 +66,94 @@ function Register() {
    });
 
    return (
-      <div className="flex justify-center items-center w-screen h-screen">
-         <form className="flex flex-col">
-            <label htmlFor="name">Nome</label>
-            <input
-               type="text"
-               id="name"
-               placeholder="Digite seu nome"
-               value={name}
-               onChange={(e) => setName(e.target.value)}
-            />
-            <label htmlFor="lastName">Sobrenome</label>
-            <input
-               type="text"
-               id="lastName"
-               placeholder="Digite seu sobrenome"
-               value={lastName}
-               onChange={(e) => setLastName(e.target.value)}
-            />
-            <label htmlFor="email">E-mail</label>
-            <input
-               type="text"
-               id="email"
-               placeholder="Digite seu e-mail"
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-            />
-            <label htmlFor="password">Senha</label>
-            <input
-               type="password"
-               id="password"
-               placeholder="Digite sua senha"
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
-            />
-            <label htmlFor="confirmPassword">Confirmar senha</label>
-            <input
-               type="password"
-               id="confirmPassword"
-               placeholder="Confirme sua senha"
-               value={confirmPassword}
-               onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <button type="button" id="backLogin">
-               Já possuo conta
-            </button>
-            <button type="button" id="signUpButton">
-               Cadastrar conta
-            </button>
-         </form>
+      <div className="flex items-center justify-center min-h-screen bg-gray-200 py-6 px-6">
+         <div className="flex flex-col sm:flex-row-reverse bg-white w-full max-w-4xl h-[40rem] shadow-lg rounded-lg overflow-hidden">
+            <div className="w-full sm:w-1/2 p-8">
+               <h1 className="text-3xl font-bold mb-8">Criar Conta</h1>
+               <form className="flex flex-col">
+                  {/* Nome */}
+                  <label htmlFor="name" className="text-sm mb-2">
+                     Nome
+                  </label>
+                  <input
+                     type="text"
+                     id="name"
+                     placeholder="Digite seu nome"
+                     className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  />
+
+                  {/* Sobrenome */}
+                  <label htmlFor="lastName" className="text-sm mb-2">
+                     Sobrenome
+                  </label>
+                  <input
+                     type="text"
+                     id="lastName"
+                     placeholder="Digite seu sobrenome"
+                     className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  />
+
+                  {/* E-mail */}
+                  <label htmlFor="email" className="text-sm mb-2">
+                     E-mail
+                  </label>
+                  <input
+                     type="email"
+                     id="email"
+                     placeholder="Digite seu e-mail"
+                     className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  />
+
+                  {/* Senha */}
+                  <label htmlFor="password" className="text-sm mb-2">
+                     Senha
+                  </label>
+                  <input
+                     type="password"
+                     id="password"
+                     placeholder="Digite sua senha"
+                     className="p-2 border border-gray-300 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  />
+
+                  {/* Confirmar senha */}
+                  <label htmlFor="passwordConfirm" className="text-sm mb-2">
+                     Confirmar senha
+                  </label>
+                  <input
+                     type="password"
+                     id="passwordConfirm"
+                     placeholder="Confirme sua senha"
+                     className="p-2 border border-gray-300 mb-6 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  />
+
+                  <button
+                     type="submit"
+                     className="bg-cyan-800 hover:bg-cyan-600 text-white p-2 transition duration-300"
+                  >
+                     Cadastrar conta
+                  </button>
+
+                  <h2 className="mt-4 text-center">
+                     Já tem uma conta?{" "}
+                     <span className="text-cyan-800 cursor-pointer">
+                        <button id="loginButton">Login</button>
+                     </span>
+                  </h2>
+               </form>
+            </div>
+
+            <div className="hidden sm:block w-[60%]">
+               <video
+                  className="w-full h-full object-cover rounded-r-[4rem]"
+                  style={{ objectPosition: "-210px" }}
+                  src={video}
+                  type="video/mp4"
+                  autoPlay
+                  muted
+                  loop
+               />
+            </div>
+         </div>
       </div>
    );
 }
