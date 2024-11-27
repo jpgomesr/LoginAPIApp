@@ -1,15 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 function Login() {
    const navigate = useNavigate();
 
-   useEffect(() => {
-      document.getElementById("loginButton").addEventListener("click", (e) => {
-         e.preventDefault();
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
 
-         const email = document.getElementById("email").value;
-         const password = document.getElementById("password").value;
+   useEffect(() => {
+      const loginButton = document.getElementById("loginButton");
+
+      const handleLogin = (e) => {
+         e.preventDefault();
 
          fetch("http://localhost:8081/api/login", {
             method: "POST",
@@ -28,40 +30,56 @@ function Login() {
                return response.json();
             })
             .then((data) => {
-               console.log("Login bem-sucedido:", data);
+               console.log("Login bem-sucedido:" + data);
                navigate("/main_page");
             })
             .catch((error) => {
-               console.error("Erro de login:", error);
-               alert("Erro de login: " + error.message);
+               console.error("Erro de login:" + error);
+               alert("Erro de login: " + error);
             });
+      };
 
-         document.getElementById("email").value = "";
-         document.getElementById("password").value = "";
+      loginButton.addEventListener("click", handleLogin);
+
+      return () => {
+         loginButton.removeEventListener("click", handleLogin);
+      };
+   }, [email, password]);
+
+   useEffect(() => {
+      const createAccount = document.getElementById("createAccount");
+
+      createAccount.addEventListener("click", () => {
+         navigate(`/register`);
       });
-
-      document
-         .getElementById("createAccount")
-         .addEventListener("click", (e) => {
-            e.preventDefault();
-            navigate("/register");
-         });
-   }, [navigate]);
+   });
 
    return (
       <>
          <div className="flex justify-center items-center w-screen h-screen">
             <form action="login" className="flex flex-col">
                <label htmlFor="email">E-mail</label>
-               <input type="text" id="email" placeholder="Digite seu e-mail" />
+               <input
+                  type="text"
+                  id="email"
+                  value={email}
+                  placeholder="Digite seu e-mail"
+                  onChange={(e) => setEmail(e.target.value)}
+               />
                <label htmlFor="password">Senha</label>
                <input
                   type="password"
                   id="password"
+                  value={password}
                   placeholder="Digite sua senha"
+                  onChange={(e) => setPassword(e.target.value)}
                />
-               <button id="createAccount">Criar conta</button>
-               <button id="loginButton">Entrar</button>
+               <button type="button" id="createAccount">
+                  Criar conta
+               </button>
+               <button type="button" id="loginButton">
+                  Entrar
+               </button>
             </form>
          </div>
       </>
