@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import video from "../assets/Video4.mp4";
+import video from "../assets/Video.mp4";
 import React from "react";
 
 function Register() {

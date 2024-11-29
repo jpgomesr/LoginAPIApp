@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import video from "../assets/Video4.mp4";
-import register from "./Register";
+import video from "../assets/Video.mp4";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -32,7 +31,7 @@ function Login() {
             })
             .then((data) => {
                console.log("Login bem-sucedido:" + data);
-               navigate("/main_page");
+               navigate("/home");
             })
             .catch((error) => {
                console.error("Erro de login:" + error);
@@ -103,7 +102,7 @@ function Login() {
                      </span>
                   </h2>
                </form>
-               <hr class="border-t-2 border-gray-300 my-4"></hr>
+               <hr className="border-t-2 border-gray-300 my-4"></hr>
                <div className="flex flex-col gap-2 mt-2">
                   <h1 className="text-cyan-800">Can you change your plan?</h1>
                   <h4 className="text-gray-500">
