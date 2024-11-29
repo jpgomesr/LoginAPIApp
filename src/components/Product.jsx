@@ -7,7 +7,11 @@ function Product({ products }) {
                <p>{product.nome}</p>
                <p>{product.valor}</p>
                <p>{product.descricao}</p>
-               <p>{product.imagem}</p>
+               <img
+                  className="w-[8rem] h-[8rem]"
+                  src={product.imagem}
+                  alt={product.descricao}
+               />
                <p>{product.sku}</p>
             </div>
          ))}

@@ -30,6 +30,7 @@ function Register() {
             sobrenome: lastName,
             email: email,
             senha: password,
+            permissao: false,
          }),
       })
          .then((response) => {

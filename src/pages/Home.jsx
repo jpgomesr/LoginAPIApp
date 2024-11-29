@@ -1,50 +1,62 @@
 import Product from "../components/Product";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function Home() {
+   const [searchParams] = useSearchParams();
    const [products, setProducts] = useState([]);
+   const idCliente = parseInt(searchParams.get("idcliente"), 10);
+   const [cliente, setCliente] = useState([]);
 
-   const getProductInfo = async () => {
-      setInterval(() => {
+   useEffect(() => {
+      setTimeout(() => {
          fetch("http://localhost:8081/api/produto")
             .then((response) => {
                if (!response.ok) {
-                  throw new Error("Erro inesperado");
+                  throw new Error("Erro ao buscar os produtos");
                }
                return response.json();
             })
             .then((data) => {
-               console.log("Sucesso: ", data);
-               setProducts((prevProducts) => {
-                  const exists = prevProducts.some(
-                     (product) => product.id === data.id
-                  );
-
-                  if (exists) {
-                     return prevProducts;
-                  }
-
-                  return [
-                     ...prevProducts,
-                     {
-                        id: data.id,
-                        nome: data.nome,
-                        valor: data.valor,
-                        descricao: data.descricao,
-                        imagem: data.imagem,
-                        sku: data.sku,
-                     },
-                  ];
-               });
+               console.log("Dados da API:", data);
+               setProducts(data);
             })
             .catch((error) => {
-               console.log(error);
+               console.error("Erro:", error);
             });
       }, 2000);
-   };
+   });
+
+   useEffect(() => {
+      if (!idCliente) return;
+
+      fetch(`http://localhost:8081/api/login/id/${idCliente}`, {
+         method: "GET",
+      })
+         .then((response) => {
+            if (!response.ok) {
+               throw new Error("Erro inesperado: " + response);
+            }
+            return response.json();
+         })
+         .then((data) => {
+            console.log(`Busca bem-sucedida:`, data);
+            setCliente(data);
+         })
+         .catch((error) => {
+            console.error("Erro:", error);
+         });
+   }, [idCliente]);
 
    return (
       <>
+         <header>
+            {cliente && cliente.admin ? (
+               <div>é admin</div>
+            ) : (
+               <div>não é admin</div>
+            )}
+         </header>
          <Product products={products} />
       </>
    );

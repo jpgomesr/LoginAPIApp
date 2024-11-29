@@ -30,12 +30,26 @@ function Login() {
                return response.json();
             })
             .then((data) => {
-               console.log("Login bem-sucedido:" + data);
-               navigate("/home");
-            })
-            .catch((error) => {
-               console.error("Erro de login:" + error);
-               alert("Erro de login: " + error);
+               console.log("Login bem-sucedido:", data);
+               fetch(`http://localhost:8081/api/login/email/${email}`, {
+                  method: "GET",
+                  headers: {
+                     "Content-Type": "application/json",
+                  },
+               })
+                  .then((response) => {
+                     if (!response.ok) {
+                        throw new Error("Erro ao buscar o ID do cliente");
+                     }
+                     return response.json();
+                  })
+                  .then((clienteData) => {
+                     console.log("ID do cliente:", clienteData.id);
+                     navigate(`/home?idcliente=${clienteData.id}`);
+                  })
+                  .catch((error) => {
+                     console.error("Erro ao buscar o ID do cliente:", error);
+                  });
             });
       };
 
@@ -64,7 +78,7 @@ function Login() {
       <div className="flex py-3 px-3 items-center justify-center bg-gray-200 min-h-screen">
          <div className="flex flex-col sm:flex-row bg-white w-full max-w-4xl shadow-lg rounded-lg overflow-hidden">
             <div className="w-full sm:w-1/2 p-8">
-               <h1 className="text-2xl font-bold my-12">Welcome to Fluid</h1>
+               <h1 className="text-2xl font-bold my-12">Login</h1>
                <form className="flex flex-col">
                   <label htmlFor="email" className="text-sm mb-2">
                      E-mail
@@ -96,28 +110,26 @@ function Login() {
                      Entrar
                   </button>
                   <h2 className="mt-4">
-                     Don't have an account?{" "}
+                     Não possui conta?{" "}
                      <span className="text-cyan-800 cursor-pointer">
-                        <button id="registerButton">Sign Up!</button>
+                        <button id="registerButton">Cadastrar!</button>
                      </span>
                   </h2>
                </form>
                <hr className="border-t-2 border-gray-300 my-4"></hr>
                <div className="flex flex-col gap-2 mt-2">
-                  <h1 className="text-cyan-800">Can you change your plan?</h1>
+                  <h1 className="text-cyan-800">Precisa de algo novo?</h1>
                   <h4 className="text-gray-500">
-                     Whenever you want. Fluid will also change with you
-                     according to your needs
+                     Aqui você encontra os melhores produtos com preços
+                     incríveis. Atualizamos nosso catálogo diariamente para
+                     atender todas as suas necessidades!
                   </h4>
-                  <h3 className="text-cyan-800">
-                     <a href="#">Contact Us</a>
-                  </h3>
                </div>
             </div>
             <div className="hidden sm:block w-[60%]">
                <video
                   className="w-full h-full object-cover rounded-l-[4rem]"
-                  style={{ objectPosition: "-210px" }}
+                  style={{ objectPosition: "-230px" }}
                   src={video}
                   type="video/mp4"
                   autoPlay
