@@ -66,10 +66,10 @@ function Register() {
    }, [navigate]);
 
    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-200 py-6 px-6">
-         <div className="flex flex-col sm:flex-row-reverse bg-white w-full max-w-4xl h-[40rem] shadow-lg rounded-lg overflow-hidden">
-            <div className="w-full sm:w-1/2 p-8">
-               <h1 className="text-3xl font-bold mb-8">Criar Conta</h1>
+      <div className="flex py-3 px-3 items-center justify-center bg-gray-200 min-h-screen">
+         <div className="flex flex-col sm:flex-row-reverse bg-white w-full max-w-4xl shadow-lg rounded-lg overflow-hidden">
+            <div className="w-full sm:w-1/2 pt-5 px-8 pb-5">
+               <h1 className="text-2xl font-bold pb-5">Cadastro Conta</h1>
                <form className="flex flex-col" onSubmit={handleSubmit}>
                   {/* Nome */}
                   <label htmlFor="name" className="text-sm mb-2">
@@ -151,7 +151,6 @@ function Register() {
                   </h2>
                </form>
             </div>
-
             <div className="hidden sm:block w-[60%]">
                <video
                   className="w-full h-full object-cover rounded-r-[4rem]"
