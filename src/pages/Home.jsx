@@ -7,8 +7,10 @@ import AdicionarProduto from "../components/AdicionarProduto";
 function Home() {
    const [searchParams] = useSearchParams();
    const [products, setProducts] = useState([]);
-   const idCliente = parseInt(searchParams.get("idcliente"), 10);
+   const idCliente = searchParams.get("idcliente");
    const [cliente, setCliente] = useState([]);
+   const [isAdicionarProdutoVisible, setIsAdicionarProdutoVisible] =
+      useState(false);
 
    useEffect(() => {
       setTimeout(() => {
@@ -50,21 +52,29 @@ function Home() {
          });
    }, [idCliente]);
 
+   const toggleAdicionarProduto = () => {
+      setIsAdicionarProdutoVisible((prev) => !prev);
+   };
+
    return (
       <>
          <header>
             {cliente && cliente.admin ? (
                <div className="flex flex-row justify-around">
-                  <button>Adicionar produto</button>
+                  <button onClick={toggleAdicionarProduto} className="w-52">
+                     {isAdicionarProdutoVisible
+                        ? "Fechar"
+                        : "Adicionar produto"}
+                  </button>
                   <HeaderHome />
-                  <button>Gerenciar usuários</button>
+                  <button className="w-52">Gerenciar usuários</button>
                </div>
             ) : (
                <HeaderHome />
             )}
          </header>
          <Product products={products} />
-         <AdicionarProduto />
+         {isAdicionarProdutoVisible && <AdicionarProduto />}
       </>
    );
 }
