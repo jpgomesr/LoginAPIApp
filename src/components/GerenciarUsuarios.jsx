@@ -25,18 +25,12 @@ function GerenciarUsuarios({ idCliente }) {
       return () => clearInterval(interval);
    }, []);
 
-   const changeAdminPerm = (userId, currentAdminStatus) => {
-      const updatedUser = {
-         id: userId,
-         admin: !currentAdminStatus,
-      };
-
+   const changeAdminPerm = (userId) => {
       fetch(`http://localhost:8081/api/users/${userId}`, {
          method: "PUT",
          headers: {
             "Content-Type": "application/json",
          },
-         body: JSON.stringify(updatedUser),
       })
          .then((response) => {
             if (!response.ok) {
@@ -45,10 +39,10 @@ function GerenciarUsuarios({ idCliente }) {
             return response.json();
          })
          .then((data) => {
-            console.log("Usuário atualizado com sucesso: ", data);
+            console.log("Usuário atualizado com sucesso: " + data);
          })
          .catch((error) => {
-            console.error("Erro: ", error);
+            console.error("Erro: " + error);
          });
    };
 
