@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/Video.mp4";
@@ -26,6 +27,7 @@ function Register() {
             "Content-Type": "application/json",
          },
          body: JSON.stringify({
+            id: v4(),
             nome: name,
             sobrenome: lastName,
             email: email,

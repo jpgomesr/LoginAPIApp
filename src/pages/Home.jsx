@@ -1,6 +1,8 @@
 import Product from "../components/Product";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import HeaderHome from "../components/HeaderHome";
+import AdicionarProduto from "../components/AdicionarProduto";
 
 function Home() {
    const [searchParams] = useSearchParams();
@@ -52,12 +54,17 @@ function Home() {
       <>
          <header>
             {cliente && cliente.admin ? (
-               <div>é admin</div>
+               <div className="flex flex-row justify-around">
+                  <button>Adicionar produto</button>
+                  <HeaderHome />
+                  <button>Gerenciar usuários</button>
+               </div>
             ) : (
-               <div>não é admin</div>
+               <HeaderHome />
             )}
          </header>
          <Product products={products} />
+         <AdicionarProduto />
       </>
    );
 }
