@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import HeaderHome from "../components/HeaderHome";
 import AdicionarProduto from "../components/AdicionarProduto";
+import GerenciarUsuarios from "../components/GerenciarUsuarios";
 
 function Home() {
    const [searchParams] = useSearchParams();
@@ -10,6 +11,8 @@ function Home() {
    const idCliente = searchParams.get("idcliente");
    const [cliente, setCliente] = useState([]);
    const [isAdicionarProdutoVisible, setIsAdicionarProdutoVisible] =
+      useState(false);
+   const [isGerenciarUsuarioVisible, setIsGerenciarUsuarioVisible] =
       useState(false);
 
    useEffect(() => {
@@ -56,6 +59,10 @@ function Home() {
       setIsAdicionarProdutoVisible((prev) => !prev);
    };
 
+   const toggleGerenciarUsuarios = () => {
+      setIsGerenciarUsuarioVisible((prev) => !prev);
+   };
+
    return (
       <>
          <header>
@@ -67,7 +74,11 @@ function Home() {
                         : "Adicionar produto"}
                   </button>
                   <HeaderHome />
-                  <button className="w-52">Gerenciar usuários</button>
+                  <button onClick={toggleGerenciarUsuarios} className="w-52">
+                     {isGerenciarUsuarioVisible
+                        ? "Fechar"
+                        : "Gerenciar usuários"}
+                  </button>
                </div>
             ) : (
                <HeaderHome />
@@ -75,6 +86,7 @@ function Home() {
          </header>
          <Product products={products} />
          {isAdicionarProdutoVisible && <AdicionarProduto />}
+         {isGerenciarUsuarioVisible && <GerenciarUsuarios idCliente={idCliente} />}
       </>
    );
 }
