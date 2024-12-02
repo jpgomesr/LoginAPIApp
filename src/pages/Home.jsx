@@ -1,11 +1,13 @@
 import Product from "../components/Product";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import HeaderHome from "../components/HeaderHome";
 import AdicionarProduto from "../components/AdicionarProduto";
 import GerenciarUsuarios from "../components/GerenciarUsuarios";
 
 function Home() {
+   const navigate = useNavigate();
+
    const [searchParams] = useSearchParams();
    const [products, setProducts] = useState([]);
    const idCliente = searchParams.get("idcliente");
@@ -68,11 +70,17 @@ function Home() {
          <header>
             {cliente && cliente.admin ? (
                <div className="flex flex-row justify-around">
-                  <button onClick={toggleAdicionarProduto} className="w-52">
-                     {isAdicionarProdutoVisible
-                        ? "Fechar"
-                        : "Adicionar produto"}
-                  </button>
+                  <div className="flex flex-row ml-6">
+                     <button onClick={() => navigate(-1)}>Voltar</button>
+                     <button
+                        onClick={toggleAdicionarProduto}
+                        className="w-52 ml-20"
+                     >
+                        {isAdicionarProdutoVisible
+                           ? "Fechar"
+                           : "Adicionar produto"}
+                     </button>
+                  </div>
                   <HeaderHome />
                   <button onClick={toggleGerenciarUsuarios} className="w-52">
                      {isGerenciarUsuarioVisible
@@ -86,7 +94,9 @@ function Home() {
          </header>
          <Product products={products} />
          {isAdicionarProdutoVisible && <AdicionarProduto />}
-         {isGerenciarUsuarioVisible && <GerenciarUsuarios idCliente={idCliente} />}
+         {isGerenciarUsuarioVisible && (
+            <GerenciarUsuarios idCliente={idCliente} />
+         )}
       </>
    );
 }
