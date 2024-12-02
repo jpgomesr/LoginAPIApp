@@ -69,8 +69,8 @@ function Home() {
       <>
          <header>
             {cliente && cliente.admin ? (
-               <div className="flex flex-row justify-around">
-                  <div className="flex flex-row ml-6">
+               <div className="flex flex-row justify-around mx-6">
+                  <div className="flex flex-row">
                      <button onClick={() => navigate(-1)}>Voltar</button>
                      <button
                         onClick={toggleAdicionarProduto}
