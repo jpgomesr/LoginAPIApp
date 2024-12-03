@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import HeaderHome from "../components/HeaderHome";
 import AdicionarProduto from "../components/AdicionarProduto";
 import GerenciarUsuarios from "../components/GerenciarUsuarios";
-import { ChevronLeft, CircleX, PackagePlus, UserCog } from "lucide-react";
+import { CircleX, LogOut, PackagePlus, Search, UserCog } from "lucide-react";
 
 function Home() {
    const navigate = useNavigate();
@@ -59,11 +59,21 @@ function Home() {
    }, [idCliente]);
 
    const toggleAdicionarProduto = () => {
-      setIsAdicionarProdutoVisible((prev) => !prev);
+      if (isGerenciarUsuarioVisible) {
+         setIsAdicionarProdutoVisible((prev) => !prev);
+         setIsGerenciarUsuarioVisible((prev) => !prev);
+      } else {
+         setIsAdicionarProdutoVisible((prev) => !prev);
+      }
    };
 
    const toggleGerenciarUsuarios = () => {
-      setIsGerenciarUsuarioVisible((prev) => !prev);
+      if (isAdicionarProdutoVisible) {
+         setIsAdicionarProdutoVisible((prev) => !prev);
+         setIsGerenciarUsuarioVisible((prev) => !prev);
+      } else {
+         setIsGerenciarUsuarioVisible((prev) => !prev);
+      }
    };
 
    return (
@@ -76,7 +86,7 @@ function Home() {
                         onClick={() => navigate(-1)}
                         className="w-16 flex justify-center items-center"
                      >
-                        <ChevronLeft />
+                        <LogOut />
                      </button>
                      <button
                         onClick={toggleAdicionarProduto}
@@ -90,15 +100,31 @@ function Home() {
                      </button>
                   </div>
                   <HeaderHome />
-                  <button
-                     onClick={toggleGerenciarUsuarios}
-                     className="w-16 flex items-center justify-center"
-                  >
-                     {isGerenciarUsuarioVisible ? <CircleX /> : <UserCog />}
-                  </button>
+                  <div className="flex flex-row">
+                     <button
+                        onClick={toggleGerenciarUsuarios}
+                        className="w-16 flex items-center justify-center mr-6"
+                     >
+                        {isGerenciarUsuarioVisible ? <CircleX /> : <UserCog />}
+                     </button>
+                     <button className="w-16 flex items-center justify-center">
+                        <Search />
+                     </button>
+                  </div>
                </div>
             ) : (
-               <HeaderHome />
+               <div className="flex flex-row justify-around mx-6">
+                  <button
+                     onClick={() => navigate(-1)}
+                     className="w-16 flex justify-center items-center"
+                  >
+                     <LogOut />
+                  </button>
+                  <HeaderHome />
+                  <button className="w-16 flex items-center justify-center">
+                     <Search />
+                  </button>
+               </div>
             )}
          </header>
          <Product products={products} />
