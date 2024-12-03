@@ -52,52 +52,69 @@ function AdicionarProduto() {
    };
 
    return (
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-300 p-4 w-[35rem] h-[30rem] flex flex-col justify-between">
-         <div className="flex w-full justify-center">
-            <p>Adicionar produto</p>
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 w-full max-w-[35rem] h-auto md:h-[30rem] flex flex-col justify-between rounded-lg shadow-lg">
+         <div className="flex w-full justify-center mb-4">
+            <p className="text-lg font-semibold">Adicionar produto</p>
          </div>
          <form
             action="createProduct"
-            className="flex flex-col justify-center items-center space-y-4"
+            className="flex flex-col justify-center items-center space-y-4 w-full"
          >
             <div className="flex flex-col w-full">
-               <label htmlFor="name">Titulo do produto</label>
+               <label htmlFor="name" className="text-sm font-medium">
+                  Título do produto
+               </label>
                <input
                   type="text"
-                  placeholder="Digite o titulo aqui"
+                  placeholder="Digite o título aqui"
                   value={nomeProd}
                   onChange={(e) => setNomeProd(e.target.value)}
+                  className="mt-1 p-2 border border-gray-300 rounded-md"
                />
             </div>
             <div className="flex flex-col w-full">
-               <label htmlFor="value">Valor do produto</label>
+               <label htmlFor="value" className="text-sm font-medium">
+                  Valor do produto
+               </label>
                <input
                   type="number"
                   placeholder="Digite o valor aqui"
                   value={valorProd}
                   onChange={(e) => setValorProd(e.target.value)}
+                  className="mt-1 p-2 border border-gray-300 rounded-md"
                />
             </div>
-            <div className="flex flex-col w-full">
-               <label htmlFor="description">Descrição do produto</label>
+            <div className="flex flex-col w-full ">
+               <label htmlFor="description" className="text-sm font-medium">
+                  Descrição do produto
+               </label>
                <input
                   type="text"
                   placeholder="Digite a descrição aqui"
                   value={descricaoProd}
                   onChange={(e) => setDescricaoProd(e.target.value)}
+                  className="mt-1 p-2 border border-gray-300 rounded-md"
                />
             </div>
             <div className="flex flex-col w-full">
-               <label htmlFor="image">Caminho da imagem na web</label>
+               <label htmlFor="image" className="text-sm font-medium">
+                  Caminho da imagem na web
+               </label>
                <input
                   type="text"
                   placeholder="Digite aqui o caminho da imagem"
                   value={imagePath}
                   onChange={(e) => setImagePath(e.target.value)}
+                  className="mt-1 p-2 border border-gray-300 rounded-md"
                />
             </div>
          </form>
-         <button onClick={createProduct}>Criar produto</button>
+         <button
+            onClick={createProduct}
+            className="mt-4 py-2 px-6 bg-cyan-800 hover:bg-cyan-600 text-white rounded-md transition"
+         >
+            Criar produto
+         </button>
       </div>
    );
 }
