@@ -103,8 +103,13 @@ function Home() {
 
    return (
       <>
-         <div className="flex flex-col gap-16">
-            <header className="bg-gray-400 py-4">
+         <header className="flex flex-col">
+            <div className="bg-black min-h-8 min-w-full flex items-center justify-center">
+               <p className="text-white text-center">
+                  PRODUTOS DISPONIVEIS POR TEMPO ILIMITADO
+               </p>
+            </div>
+            <div className="bg-cyan-800 min-h-12">
                {cliente && cliente.admin ? (
                   <div className="flex flex-row justify-around mx-6">
                      <div className="flex flex-row">
@@ -112,16 +117,16 @@ function Home() {
                            onClick={() => navigate(-1)}
                            className="w-16 flex justify-center items-center"
                         >
-                           <LogOut />
+                           <LogOut className="text-white" />
                         </button>
                         <button
                            onClick={toggleAdicionarProduto}
                            className="w-16 ml-6 flex justify-center items-center"
                         >
                            {isAdicionarProdutoVisible ? (
-                              <CircleX />
+                              <CircleX className="text-white" />
                            ) : (
-                              <PackagePlus />
+                              <PackagePlus className="text-white" />
                            )}
                         </button>
                      </div>
@@ -132,13 +137,13 @@ function Home() {
                            className="w-16 flex items-center justify-center mr-6"
                         >
                            {isGerenciarUsuarioVisible ? (
-                              <CircleX />
+                              <CircleX className="text-white" />
                            ) : (
-                              <UserCog />
+                              <UserCog className="text-white" />
                            )}
                         </button>
                         <button className="w-16 flex items-center justify-center">
-                           <Search />
+                           <Search className="text-white" />
                         </button>
                      </div>
                   </div>
@@ -148,17 +153,20 @@ function Home() {
                         onClick={() => navigate(-1)}
                         className="w-16 flex justify-center items-center"
                      >
-                        <LogOut />
+                        <LogOut className="text-white" />
                      </button>
-                     <HeaderHome />
+                     <HeaderHome className="text-white" />
                      <button className="w-16 flex items-center justify-center">
-                        <Search />
+                        <Search className="text-white" />
                      </button>
                   </div>
                )}
-            </header>
-            <div className="w-full flex justify-center items-center">
-               <div className="grid grid-cols-3 max-w-[60rem] p-8 bg-gray-700 rounded-xl gap-4">
+            </div>
+         </header>
+
+         <div className="flex flex-col bg-gray-200 min-h-[72.6vh]">
+            <div className="m-16 flex justify-center items-center">
+               <div className="grid grid-cols-3 flex-wrap max-w-[60rem] p-8 bg-white rounded-xl gap-4">
                   <Product
                      products={products}
                      cliente={cliente}
@@ -166,8 +174,16 @@ function Home() {
                   />
                </div>
             </div>
-            <Footer />
          </div>
+         <footer className="bg-cyan-800 h-[5rem] flex justify-center items-center">
+            <div className="mx-5 flex text-center">
+               <p className="text-white">
+                  Direitos reservados ao grupo{" "}
+                  <span className="font-bold">João Paulo, Gustavo e Caio</span>{" "}
+                  © 2024
+               </p>
+            </div>
+         </footer>
          {isAdicionarProdutoVisible && <AdicionarProduto />}
          {isGerenciarUsuarioVisible && (
             <GerenciarUsuarios idCliente={idCliente} />
