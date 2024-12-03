@@ -5,7 +5,6 @@ import HeaderHome from "../components/HeaderHome";
 import AdicionarProduto from "../components/AdicionarProduto";
 import GerenciarUsuarios from "../components/GerenciarUsuarios";
 import { CircleX, LogOut, PackagePlus, Search, UserCog } from "lucide-react";
-import Footer from "../components/Footer";
 
 function Home() {
    const navigate = useNavigate();
@@ -117,7 +116,7 @@ function Home() {
                            onClick={() => navigate(-1)}
                            className="w-16 flex justify-center items-center"
                         >
-                           <LogOut className="text-white" />
+                           <LogOut className="text-white" id="logout" />
                         </button>
                         <button
                            onClick={toggleAdicionarProduto}
@@ -126,7 +125,10 @@ function Home() {
                            {isAdicionarProdutoVisible ? (
                               <CircleX className="text-white" />
                            ) : (
-                              <PackagePlus className="text-white" />
+                              <PackagePlus
+                                 className="text-white"
+                                 id="createProduct"
+                              />
                            )}
                         </button>
                      </div>
@@ -139,11 +141,14 @@ function Home() {
                            {isGerenciarUsuarioVisible ? (
                               <CircleX className="text-white" />
                            ) : (
-                              <UserCog className="text-white" />
+                              <UserCog
+                                 className="text-white"
+                                 id="configUsers"
+                              />
                            )}
                         </button>
                         <button className="w-16 flex items-center justify-center">
-                           <Search className="text-white" />
+                           <Search className="text-white" id="search" />
                         </button>
                      </div>
                   </div>
@@ -153,11 +158,11 @@ function Home() {
                         onClick={() => navigate(-1)}
                         className="w-16 flex justify-center items-center"
                      >
-                        <LogOut className="text-white" />
+                        <LogOut className="text-white" id="logout" />
                      </button>
                      <HeaderHome className="text-white" />
                      <button className="w-16 flex items-center justify-center">
-                        <Search className="text-white" />
+                        <Search className="text-white" id="search" />
                      </button>
                   </div>
                )}
@@ -166,7 +171,7 @@ function Home() {
 
          <div className="flex flex-col bg-gray-200 min-h-[72.6vh]">
             <div className="m-16 flex justify-center items-center">
-               <div className="grid grid-cols-3 flex-wrap max-w-[60rem] p-8 bg-white rounded-xl gap-4">
+               <div className="grid grid-cols-3 flex-wrap w-[60rem] p-8 bg-white rounded-xl gap-4">
                   <Product
                      products={products}
                      cliente={cliente}
