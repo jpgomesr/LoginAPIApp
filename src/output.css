@@ -554,8 +554,16 @@ video {
   display: none;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .absolute {
   position: absolute;
+}
+
+.sticky {
+  position: sticky;
 }
 
 .left-\[50\%\] {
@@ -564,6 +572,18 @@ video {
 
 .top-\[50\%\] {
   top: 50%;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
+.top-1\/2 {
+  top: 50%;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
 }
 
 .mx-6 {
@@ -613,8 +633,16 @@ video {
   margin-right: 1.5rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .flex {
   display: flex;
+}
+
+.grid {
+  display: grid;
 }
 
 .hidden {
@@ -635,6 +663,10 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.h-\[5rem\] {
+  height: 5rem;
 }
 
 .min-h-screen {
@@ -673,6 +705,14 @@ video {
   max-width: 56rem;
 }
 
+.max-w-\[20rem\] {
+  max-width: 20rem;
+}
+
+.max-w-\[60rem\] {
+  max-width: 60rem;
+}
+
 .-translate-x-1\/2 {
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -689,6 +729,14 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -719,6 +767,14 @@ video {
   gap: 0.5rem;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-16 {
+  gap: 4rem;
+}
+
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -735,6 +791,10 @@ video {
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
 }
 
 .rounded-l-\[4rem\] {
@@ -780,6 +840,16 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+}
+
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity, 1));
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -810,6 +880,11 @@ video {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pb-5 {
