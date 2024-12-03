@@ -4,6 +4,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import HeaderHome from "../components/HeaderHome";
 import AdicionarProduto from "../components/AdicionarProduto";
 import GerenciarUsuarios from "../components/GerenciarUsuarios";
+import { ChevronLeft, CircleX, PackagePlus, UserCog } from "lucide-react";
 
 function Home() {
    const navigate = useNavigate();
@@ -71,21 +72,29 @@ function Home() {
             {cliente && cliente.admin ? (
                <div className="flex flex-row justify-around mx-6">
                   <div className="flex flex-row">
-                     <button onClick={() => navigate(-1)}>Voltar</button>
+                     <button
+                        onClick={() => navigate(-1)}
+                        className="w-16 flex justify-center items-center"
+                     >
+                        <ChevronLeft />
+                     </button>
                      <button
                         onClick={toggleAdicionarProduto}
-                        className="w-52 ml-20"
+                        className="w-16 ml-6 flex justify-center items-center"
                      >
-                        {isAdicionarProdutoVisible
-                           ? "Fechar"
-                           : "Adicionar produto"}
+                        {isAdicionarProdutoVisible ? (
+                           <CircleX />
+                        ) : (
+                           <PackagePlus />
+                        )}
                      </button>
                   </div>
                   <HeaderHome />
-                  <button onClick={toggleGerenciarUsuarios} className="w-52">
-                     {isGerenciarUsuarioVisible
-                        ? "Fechar"
-                        : "Gerenciar usuários"}
+                  <button
+                     onClick={toggleGerenciarUsuarios}
+                     className="w-16 flex items-center justify-center"
+                  >
+                     {isGerenciarUsuarioVisible ? <CircleX /> : <UserCog />}
                   </button>
                </div>
             ) : (

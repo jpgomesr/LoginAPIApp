@@ -20,7 +20,7 @@ function GerenciarUsuarios({ idCliente }) {
             .catch((error) => {
                console.error("Erro: " + error);
             });
-      }, 2000);
+      }, 300);
 
       return () => clearInterval(interval);
    }, []);
