@@ -1,0 +1,8 @@
+/* Exemplo de CSS */
+.background {
+    background-image: url('transferir.jpg');
+    background-size: cover; /* Ajusta a imagem para cobrir o elemento */
+    background-position: center;
+    height: 100vh; /* Defina a altura do elemento */
+  }
+  
