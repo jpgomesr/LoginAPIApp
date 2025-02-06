@@ -4,6 +4,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import HeaderHome from "../components/HeaderHome";
 import AdicionarProduto from "../components/AdicionarProduto";
 import GerenciarUsuarios from "../components/GerenciarUsuarios";
+import SearchArea from "../components/SearchArea";
 import { CircleX, LogOut, PackagePlus, Search, UserCog } from "lucide-react";
 
 function Home() {
@@ -13,14 +14,17 @@ function Home() {
    const [products, setProducts] = useState([]);
    const idCliente = searchParams.get("idcliente");
    const [cliente, setCliente] = useState([]);
+   const [pesquisa, setPesquisa] = useState("");
    const [isAdicionarProdutoVisible, setIsAdicionarProdutoVisible] =
       useState(false);
    const [isGerenciarUsuarioVisible, setIsGerenciarUsuarioVisible] =
       useState(false);
+   const [isBuscarVisible, setIsBuscarVisible] = useState(false);
 
    useEffect(() => {
       setTimeout(() => {
-         fetch("http://localhost:8081/api/produto")
+         if(pesquisais.trim() == "") {
+            fetch("http://localhost:8081/api/produto")
             .then((response) => {
                if (!response.ok) {
                   throw new Error("Erro ao buscar os produtos");
@@ -34,6 +38,22 @@ function Home() {
             .catch((error) => {
                console.error("Erro:", error);
             });
+         } else {
+            fetch(`http://localhost:8081/api/produto/${pesquisa}`)
+            .then((response) => {
+               if (!response.ok) {
+                  throw new Error("Erro ao buscar os produtos");
+               }
+               return response.json();
+            })
+            .then((data) => {
+               console.log("Dados da API:", data);
+               setProducts(data);
+            })
+            .catch((error) => {
+               console.error("Erro:", error);
+            });
+         }
       }, 2000);
    });
 
@@ -74,6 +94,10 @@ function Home() {
       } else {
          setIsGerenciarUsuarioVisible((prev) => !prev);
       }
+   };
+
+   const toggleBusca = () => {
+      setIsBuscarVisible((prev) => !prev);
    };
 
    const deleteProduct = (sku) => {
@@ -147,8 +171,17 @@ function Home() {
                               />
                            )}
                         </button>
-                        <button className="w-16 flex items-center justify-center">
-                           <Search className="text-white" id="search" />
+                        <button
+                           onClick={toggleBusca}
+                           className="w-16 flex items-center justify-center"
+                        >
+                           {isBuscarVisible ? (
+                              <div>
+                                 <CircleX className="text-white" />
+                              </div>
+                           ) : (
+                              <Search className="text-white" id="search" />
+                           )}
                         </button>
                      </div>
                   </div>
@@ -193,6 +226,7 @@ function Home() {
          {isGerenciarUsuarioVisible && (
             <GerenciarUsuarios idCliente={idCliente} />
          )}
+         {isBuscarVisible && <SearchArea />}
       </>
    );
 }
