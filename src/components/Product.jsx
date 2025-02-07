@@ -1,25 +1,27 @@
 import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-function Product({ products, cliente, deleteProduct }) {
+function Product({ products, cliente, deleteProduct, pesquisa }) {
    const [loadingMessage, setLoadingMessage] = useState(
       "Carregando produtos..."
    );
 
+   const filteredProducts = products.filter((product) => {
+      return product.nome.toLowerCase().includes(pesquisa.toLowerCase());
+   });
+
    useEffect(() => {
-      if (products.length == 0) {
-         setInterval(() => {
-            setLoadingMessage("Nenhum produto encontrado!");
-         }, 3000);
+      if (filteredProducts.length === 0) {
+         setLoadingMessage("Nenhum produto encontrado!");
       }
-   }, [products]);
+   }, [filteredProducts]);
 
    return (
       <>
-         {products.length === 0 ? (
+         {filteredProducts.length === 0 ? (
             <p className="text-center text-gray-500">{loadingMessage}</p>
          ) : (
-            products.map((product) => (
+            filteredProducts.map((product) => (
                <div
                   key={product.id}
                   className="relative flex flex-col justify-center items-center text-center border p-6 space-y-4 rounded-lg shadow-md bg-white"

@@ -21,7 +21,7 @@ function Register() {
          return;
       }
 
-      fetch("http://localhost:8081/api/cadastro", {
+      fetch("http://localhost:8088/api/cadastro", {
          method: "POST",
          headers: {
             "Content-Type": "application/json",

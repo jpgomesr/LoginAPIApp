@@ -13,7 +13,7 @@ function Login() {
       const handleLogin = (e) => {
          e.preventDefault();
 
-         fetch("http://localhost:8081/api/login", {
+         fetch("http://localhost:8088/api/login", {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function Login() {
             })
             .then((data) => {
                console.log("Login bem-sucedido:", data);
-               fetch(`http://localhost:8081/api/login/email/${email}`, {
+               fetch(`http://localhost:8088/api/login/email/${email}`, {
                   method: "GET",
                   headers: {
                      "Content-Type": "application/json",

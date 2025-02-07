@@ -20,7 +20,7 @@ function AdicionarProduto() {
          return;
       }
 
-      fetch("http://localhost:8081/api/produto", {
+      fetch("http://localhost:8088/api/produto", {
          method: "POST",
          headers: {
             "Content-Type": "application/json",

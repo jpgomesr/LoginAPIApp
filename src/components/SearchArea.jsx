@@ -1,10 +1,15 @@
-function SearchArea() {
+function SearchArea({ pesquisa, setPesquisa }) {
    return (
       <div className="absolute top-[90px] right-[32px] bg-white w-96 h-12 flex justify-center items-center shadow-lg rounded-xl gap-2">
          <input
             type="text"
+            value={pesquisa}
+            onChange={(e) => {
+               setPesquisa(e.target.value);
+               console.log(pesquisa);
+            }}
             placeholder="Pesquisar..."
-            className="pl-4 py-3 w-full rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            className="pl-4 py-3 w-full rounded-xl border-none focus:outline-none focus:ring-transparent transition-all"
          />
          <button className="w-[55px] h-full flex justify-center items-center">
             <svg

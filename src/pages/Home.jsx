@@ -23,44 +23,33 @@ function Home() {
 
    useEffect(() => {
       setTimeout(() => {
-         if(pesquisais.trim() == "") {
-            fetch("http://localhost:8081/api/produto")
+         fetch("http://localhost:8088/api/produto")
             .then((response) => {
                if (!response.ok) {
-                  throw new Error("Erro ao buscar os produtos");
+                  throw new Error(
+                     `Erro ao buscar os produtos: ${response.statusText}`
+                  );
                }
                return response.json();
             })
             .then((data) => {
-               console.log("Dados da API:", data);
-               setProducts(data);
-            })
-            .catch((error) => {
-               console.error("Erro:", error);
-            });
-         } else {
-            fetch(`http://localhost:8081/api/produto/${pesquisa}`)
-            .then((response) => {
-               if (!response.ok) {
-                  throw new Error("Erro ao buscar os produtos");
+               if (data) {
+                  console.log("Dados da API:", data);
+                  setProducts(data);
+               } else {
+                  console.error("Resposta vazia ou inesperada", data);
                }
-               return response.json();
-            })
-            .then((data) => {
-               console.log("Dados da API:", data);
-               setProducts(data);
             })
             .catch((error) => {
                console.error("Erro:", error);
             });
-         }
       }, 2000);
    });
 
    useEffect(() => {
       if (!idCliente) return;
 
-      fetch(`http://localhost:8081/api/login/id/${idCliente}`, {
+      fetch(`http://localhost:8088/api/login/id/${idCliente}`, {
          method: "GET",
       })
          .then((response) => {
@@ -101,7 +90,7 @@ function Home() {
    };
 
    const deleteProduct = (sku) => {
-      fetch(`http://localhost:8081/api/produto/${sku}`, {
+      fetch(`http://localhost:8088/api/produto/${sku}`, {
          method: "DELETE",
          headers: {
             "Content-Type": "application/json",
@@ -127,11 +116,6 @@ function Home() {
    return (
       <>
          <header className="flex flex-col">
-            <div className="bg-black min-h-8 min-w-full flex items-center justify-center">
-               <p className="text-white text-center">
-                  PRODUTOS DISPONIVEIS POR TEMPO ILIMITADO
-               </p>
-            </div>
             <div className="bg-cyan-800 min-h-12">
                {cliente && cliente.admin ? (
                   <div className="flex flex-row justify-around mx-6">
@@ -202,13 +186,14 @@ function Home() {
             </div>
          </header>
 
-         <div className="flex flex-col bg-gray-200 min-h-[72.6vh]">
+         <div className="flex flex-col bg-gray-200 min-h-[77.33vh]">
             <div className="m-16 flex justify-center items-center">
                <div className="grid grid-cols-3 flex-wrap w-[60rem] p-8 bg-white rounded-xl gap-4">
                   <Product
                      products={products}
                      cliente={cliente}
                      deleteProduct={deleteProduct}
+                     pesquisa={pesquisa}
                   />
                </div>
             </div>
@@ -226,7 +211,9 @@ function Home() {
          {isGerenciarUsuarioVisible && (
             <GerenciarUsuarios idCliente={idCliente} />
          )}
-         {isBuscarVisible && <SearchArea />}
+         {isBuscarVisible && (
+            <SearchArea pesquisa={pesquisa} setPesquisa={setPesquisa} />
+         )}
       </>
    );
 }

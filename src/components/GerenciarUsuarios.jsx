@@ -5,7 +5,7 @@ function GerenciarUsuarios({ idCliente }) {
 
    useEffect(() => {
       const interval = setInterval(() => {
-         fetch("http://localhost:8081/api/users", {
+         fetch("http://localhost:8088/api/users", {
             method: "GET",
          })
             .then((response) => {
@@ -26,7 +26,7 @@ function GerenciarUsuarios({ idCliente }) {
    }, []);
 
    const changeAdminPerm = (userId) => {
-      fetch(`http://localhost:8081/api/users/${userId}`, {
+      fetch(`http://localhost:8088/api/users/${userId}`, {
          method: "PUT",
          headers: {
             "Content-Type": "application/json",
